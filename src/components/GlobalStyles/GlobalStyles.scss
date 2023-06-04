@@ -9,6 +9,7 @@
 
 :root {
     --primary: #ff3b5c;
+    --black: #000;
 }
 
 html {
@@ -20,4 +21,9 @@ body {
   font-size: 1.6rem;
   line-height: 1.5;
   text-rendering: optimizeSpeed;
+}
+
+button, input, [tabindex] {
+    outline: none;
+    border: none;
 }
