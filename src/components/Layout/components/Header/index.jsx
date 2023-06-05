@@ -8,8 +8,25 @@ import styles from "./Header.module.scss";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
 import AccountItem from "~/components/AccountItem";
 import Button from "~/components/Button";
+import Menu from "~/components/Menu";
 
 const cx = classNames.bind(styles);
+
+const MENU_ITEMS = [
+  {
+    icon: <i className="bi bi-translate"></i>,
+    title: 'English',
+  },
+  {
+    icon: <i className="bi bi-patch-question"></i>,
+    title: 'Feedback and help',
+    to: '/feedback'
+  },
+  {
+    icon: <i className="bi bi-keyboard"></i>,
+    title: 'Keyboard shortcuts',
+  }
+]
 
 function Header() {
   const [searchResult, setSearchResult] = useState([]);
@@ -33,9 +50,7 @@ function Header() {
           render={(attrs) => (
             <div className={cx("search-result")} tabIndex="-1" {...attrs}>
               <PopperWrapper>
-                <h4 className={cx('search-title')}>
-                  Account
-                </h4>
+                <h4 className={cx("search-title")}>Account</h4>
                 <AccountItem />
                 <AccountItem />
                 <AccountItem />
@@ -64,6 +79,12 @@ function Header() {
         <div className={cx("action")}>
           <Button text>Upload</Button>
           <Button primary>Log in</Button>
+
+          <Menu items={MENU_ITEMS}>
+            <button className={cx("more-btn")}>
+              <i className="bi bi-three-dots-vertical"></i>
+            </button>
+          </Menu>
         </div>
       </div>
     </header>

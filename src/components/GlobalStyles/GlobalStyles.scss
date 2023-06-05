@@ -27,3 +27,9 @@ button, input, [tabindex] {
     outline: none;
     border: none;
 }
+
+a[href] {
+    text-decoration: none;
+    color: #000;
+    font-weight: 600;
+}
