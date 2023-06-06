@@ -1,5 +1,24 @@
 @import "normalize.css";
-@import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
+// @import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
+
+// fonts
+@font-face {
+  font-family: ProximaNova;
+  src: url('/assets/fonts/Proxima-Nova-Regular.woff2');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: ProximaNova;
+  src: url('/assets/fonts/ProximaNova-Semibold.woff2');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: SofiaPro;
+  src: url('/assets/fonts/sofiapro-bold.woff');
+  font-weight: 700;
+}
 
 * {
   padding: 0;
@@ -17,7 +36,8 @@ html {
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  // font-family: "Poppins", sans-serif;
+  font-family: "ProximaNova", sans-serif;
   font-size: 1.6rem;
   line-height: 1.5;
   text-rendering: optimizeSpeed;
@@ -33,7 +53,6 @@ input,
 a[href] {
   text-decoration: none;
   color: #000;
-  font-weight: 600;
 }
 
 // Custom tippy tooltip

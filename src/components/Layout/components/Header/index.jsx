@@ -10,6 +10,8 @@ import { Wrapper as PopperWrapper } from "~/components/Popper";
 import AccountItem from "~/components/AccountItem";
 import Button from "~/components/Button";
 import Menu from "~/components/Menu";
+import Image from '~/components/Image'
+// import { MessageIcon } from "~/components/Icons/index.jsx";
 
 const cx = classNames.bind(styles);
 
@@ -141,6 +143,7 @@ function Header() {
               <Tippy content='Message' placement="bottom">
                 <button className={cx('action-btn')}>
                   <i className="bi bi-send-check"></i>
+                  {/* <MessageIcon /> */}
                 </button>
               </Tippy>
               <Tippy content='Mail box' placement="bottom">
@@ -157,7 +160,7 @@ function Header() {
           )}
           <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
             {currentUser ? (
-              <img className={cx("user-avatar")} src='https://phongreviews.com/wp-content/uploads/2022/11/anh-avatar-dep-cho-con-trai-11.jpg' alt="Nguyễn Hoàng Vũ" />
+              <Image className={cx("user-avatar")} src='1https://phongreviews.com/wp-content/uploads/2022/11/anh-avatar-dep-cho-con-trai-11.jpg' alt="Nguyễn Hoàng Vũ" />
             ) : (
               <button className={cx("more-btn")}>
                 <i className="bi bi-three-dots-vertical"></i>
