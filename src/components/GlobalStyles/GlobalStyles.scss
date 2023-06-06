@@ -2,18 +2,18 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
 
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 :root {
-    --primary: #ff3b5c;
-    --black: #000;
+  --primary: #ff3b5c;
+  --black: #000;
 }
 
 html {
-    font-size: 62.5%;
+  font-size: 62.5%;
 }
 
 body {
@@ -23,13 +23,38 @@ body {
   text-rendering: optimizeSpeed;
 }
 
-button, input, [tabindex] {
-    outline: none;
-    border: none;
+button,
+input,
+[tabindex] {
+  outline: none;
+  border: none;
 }
 
 a[href] {
-    text-decoration: none;
-    color: #000;
-    // font-weight: 600;
+  text-decoration: none;
+  color: #000;
+  font-weight: 600;
+}
+
+// Custom tippy tooltip
+body {
+  .tippy-box {
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1.6rem;
+    line-height: 2.2rem;
+    background-color: rgba(84, 84, 84, 0.95);
+  }
+
+  .tippy-arrow {
+    color: rgba(84, 84, 84, 0.95);
+  }
+
+  .tippy-content {
+    padding: 8px 9px;
+  }
+
+  .tippy-box[data-placement^="bottom"] > .tippy-arrow:before {
+    top: -8px;
+  }
 }

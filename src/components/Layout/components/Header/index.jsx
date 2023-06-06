@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import classNames from "classnames/bind";
-import Tippy from "@tippyjs/react/headless";
+import Tippy from "@tippyjs/react";
+import HeadlessTippy from "@tippyjs/react/headless";
 import "tippy.js/dist/tippy.css"; // optional
 
 import images from "~/assets/images";
@@ -15,33 +16,33 @@ const cx = classNames.bind(styles);
 const MENU_ITEMS = [
   {
     icon: <i className="bi bi-translate"></i>,
-    title: 'English',
+    title: "English",
     children: {
-      title: 'Language',
+      title: "Language",
       data: [
         {
-          type: 'language',
-          code: 'en',
-          title: 'English'
+          type: "language",
+          code: "en",
+          title: "English",
         },
         {
-          type: 'language',
-          code: 'vi',
-          title: 'Tiếng Việt',
-        }
-      ]
+          type: "language",
+          code: "vi",
+          title: "Tiếng Việt",
+        },
+      ],
     },
   },
   {
     icon: <i className="bi bi-patch-question"></i>,
-    title: 'Feedback and help',
-    to: '/feedback'
+    title: "Feedback and help",
+    to: "/feedback",
   },
   {
     icon: <i className="bi bi-keyboard"></i>,
-    title: 'Keyboard shortcuts',
-  }
-]
+    title: "Keyboard shortcuts",
+  },
+];
 
 function Header() {
   const [searchResult, setSearchResult] = useState([]);
@@ -55,12 +56,39 @@ function Header() {
   // handle logic
   const handleMenuChange = (menuItem) => {
     switch (menuItem.type) {
-      case 'language':
+      case "language":
         // handle change language
         break;
       default:
     }
-  }
+  };
+
+  const currentUser = true;
+
+  const userMenu = [
+    {
+      icon: <i className="bi bi-person"></i>,
+      title: "View profile",
+      to: "/@Vincent",
+    },
+    {
+      icon: <i className="bi bi-coin"></i>,
+      title: "Get coins",
+      to: "/coin",
+    },
+    {
+      icon: <i className="bi bi-gear-wide"></i>,
+      title: "Settings",
+      to: "/settings",
+    },
+    ...MENU_ITEMS,
+    {
+      icon: <i className="bi bi-box-arrow-right"></i>,
+      title: "Log out",
+      to: "/logout",
+      separate: true, // cái nào có class này thì có  gạch trên đầu
+    },
+  ]
 
   return (
     <header className={cx("wrapper")}>
@@ -69,12 +97,13 @@ function Header() {
           <img src={images.logo} alt="tiktok" />
         </div>
 
-        <Tippy
+        <HeadlessTippy
           interactive
           visible={searchResult.length > 0}
           render={(attrs) => (
             <div className={cx("search-result")} tabIndex="-1" {...attrs}>
-          :    <PopperWrapper>
+              :{" "}
+              <PopperWrapper>
                 <h4 className={cx("search-title")}>Account</h4>
                 <AccountItem />
                 <AccountItem />
@@ -99,16 +128,41 @@ function Header() {
               <i className="bi bi-search"></i>
             </button>
           </div>
-        </Tippy>
+        </HeadlessTippy>
 
         <div className={cx("action")}>
-          <Button text>Upload</Button>
-          <Button primary>Log in</Button>
-
-          <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
-            <button className={cx("more-btn")}>
-              <i className="bi bi-three-dots-vertical"></i>
-            </button>
+          {currentUser ? (
+            <>
+              <Tippy content='Upload video' placement="bottom">
+                <button className={cx('action-btn')}>
+                  <i className="bi bi-cloud-upload"></i>
+                </button>
+              </Tippy>
+              <Tippy content='Message' placement="bottom">
+                <button className={cx('action-btn')}>
+                  <i className="bi bi-send-check"></i>
+                </button>
+              </Tippy>
+              <Tippy content='Mail box' placement="bottom">
+                <button className={cx('action-btn')}>
+                  <i className="bi bi-mailbox"></i>
+                </button>
+              </Tippy>
+            </>
+          ) : (
+            <>
+              <Button text>Upload</Button>
+              <Button primary>Log in</Button>
+            </>
+          )}
+          <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
+            {currentUser ? (
+              <img className={cx("user-avatar")} src='https://phongreviews.com/wp-content/uploads/2022/11/anh-avatar-dep-cho-con-trai-11.jpg' alt="Nguyễn Hoàng Vũ" />
+            ) : (
+              <button className={cx("more-btn")}>
+                <i className="bi bi-three-dots-vertical"></i>
+              </button>
+            )}
           </Menu>
         </div>
       </div>
