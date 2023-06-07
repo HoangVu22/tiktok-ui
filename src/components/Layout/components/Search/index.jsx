@@ -4,6 +4,7 @@ import HeadlessTippy from "@tippyjs/react/headless";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
 import AccountItem from "~/components/AccountItem";
 import styles from "./Search.module.scss";
+import { useDebounce } from '~/hooks'
 
 const cx = classNames.bind(styles);
 
@@ -13,10 +14,12 @@ function Search() {
   const [showResult, setShowResult] = useState(true);
   const [loading, setLoading] = useState(false);
 
+  const debounce = useDebounce(searchValue, 700) //  khi user ngừng gõ 700ms mới gọi API
+
   const inputRef = useRef();
 
   useEffect(() => {
-    if (!searchValue.trim()) {
+    if (!debounce.trim()) {
       setSearchResult([]);
       return;
     }
@@ -25,7 +28,7 @@ function Search() {
 
     fetch(
       `https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(
-        searchValue
+        debounce
       )}&type=less`
     )
       .then((res) => res.json())
@@ -36,7 +39,7 @@ function Search() {
       .catch(() => {
         setLoading(false); // trong tình huống lỗi như mất wf thì cũng false (dừng loading)
       });
-  }, [searchValue]);
+  }, [debounce]);
 
   const handleClear = () => {
     setSearchvalue(""); // khi click btn xóa sẽ set lại cho value chuỗi rỗng (useState)
