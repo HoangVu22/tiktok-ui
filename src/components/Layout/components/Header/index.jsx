@@ -1,16 +1,13 @@
-import { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import Tippy from "@tippyjs/react";
-import HeadlessTippy from "@tippyjs/react/headless";
 import "tippy.js/dist/tippy.css"; // optional
 
 import images from "~/assets/images";
 import styles from "./Header.module.scss";
-import { Wrapper as PopperWrapper } from "~/components/Popper";
-import AccountItem from "~/components/AccountItem";
 import Button from "~/components/Button";
 import Menu from "~/components/Menu";
 import Image from '~/components/Image'
+import Search from "../Search";
 // import { MessageIcon } from "~/components/Icons/index.jsx";
 
 const cx = classNames.bind(styles);
@@ -47,13 +44,6 @@ const MENU_ITEMS = [
 ];
 
 function Header() {
-  const [searchResult, setSearchResult] = useState([]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setSearchResult([]);
-    }, 0);
-  }, []);
 
   // handle logic
   const handleMenuChange = (menuItem) => {
@@ -99,38 +89,8 @@ function Header() {
           <img src={images.logo} alt="tiktok" />
         </div>
 
-        <HeadlessTippy
-          interactive
-          visible={searchResult.length > 0}
-          render={(attrs) => (
-            <div className={cx("search-result")} tabIndex="-1" {...attrs}>
-              :{" "}
-              <PopperWrapper>
-                <h4 className={cx("search-title")}>Account</h4>
-                <AccountItem />
-                <AccountItem />
-                <AccountItem />
-                <AccountItem />
-              </PopperWrapper>
-            </div>
-          )}
-        >
-          <div className={cx("search")}>
-            <input
-              type="text"
-              placeholder="Search accounts and videos"
-              spellCheck={false}
-            />
-            <button className={cx("clear")}>
-              <i className="bi bi-x-circle-fill"></i>
-            </button>
-            {/* <i className={`bi bi-arrow-repeat ${cx('loading')}`}></i> */}
-
-            <button className={cx("search-btn")}>
-              <i className="bi bi-search"></i>
-            </button>
-          </div>
-        </HeadlessTippy>
+        {/* Search */}
+        <Search />
 
         <div className={cx("action")}>
           {currentUser ? (
@@ -160,7 +120,7 @@ function Header() {
           )}
           <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
             {currentUser ? (
-              <Image className={cx("user-avatar")} src='1https://phongreviews.com/wp-content/uploads/2022/11/anh-avatar-dep-cho-con-trai-11.jpg' alt="Nguyễn Hoàng Vũ" />
+              <Image className={cx("user-avatar")} src='https://phongreviews.com/wp-content/uploads/2022/11/anh-avatar-dep-cho-con-trai-11.jpg' alt="Nguyễn Hoàng Vũ" />
             ) : (
               <button className={cx("more-btn")}>
                 <i className="bi bi-three-dots-vertical"></i>
