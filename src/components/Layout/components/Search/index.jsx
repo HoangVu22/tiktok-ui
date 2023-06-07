@@ -11,14 +11,32 @@ function Search() {
   const [searchResult, setSearchResult] = useState([]);
   const [searchValue, setSearchvalue] = useState("");
   const [showResult, setShowResult] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const inputRef = useRef();
 
   useEffect(() => {
-    setTimeout(() => {
-      setSearchResult([1, 2, 3]);
-    }, 0);
-  }, []);
+    if (!searchValue.trim()) {
+      setSearchResult([]);
+      return;
+    }
+
+    setLoading(true); // trước khi call API thì load true
+
+    fetch(
+      `https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(
+        searchValue
+      )}&type=less`
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        setSearchResult(res.data);
+        setLoading(false); // sau khi call API thì load false
+      })
+      .catch(() => {
+        setLoading(false); // trong tình huống lỗi như mất wf thì cũng false (dừng loading)
+      });
+  }, [searchValue]);
 
   const handleClear = () => {
     setSearchvalue(""); // khi click btn xóa sẽ set lại cho value chuỗi rỗng (useState)
@@ -38,10 +56,9 @@ function Search() {
         <div className={cx("search-result")} tabIndex="-1" {...attrs}>
           <PopperWrapper>
             <h4 className={cx("search-title")}>Account</h4>
-            <AccountItem />
-            <AccountItem />
-            <AccountItem />
-            <AccountItem />
+            {searchResult.map((result) => (
+              <AccountItem key={result.id} data={result} />
+            ))}
           </PopperWrapper>
         </div>
       )}
@@ -54,17 +71,18 @@ function Search() {
           type="text"
           placeholder="Search accounts and videos"
           spellCheck={false}
-          onChange={(e) => setSearchvalue(e.target.value)}
+          onChange={(e) => setSearchvalue(e.target.value)} // khi giá trị thay đổi thì set lại
           onFocus={() => setShowResult(true)} // khi focus vào input thì hiện Result
         />
 
-        {/* khi có giá trị thì hiện icon xóa */}
-        {!!searchValue && (
+        {/* Nếu có giá trị và không có loading thì hiện icon xóa */}
+        {!!searchValue && !loading && (
           <button className={cx("clear")} onClick={handleClear}>
             <i className="bi bi-x-circle-fill"></i>
           </button>
         )}
-        {/* <i className={`bi bi-arrow-repeat ${cx('loading')}`}></i> */}
+        {/* Nếu có loading thì toán tử && sẽ lấy icon này ra để hiện thị */}
+        {loading && <i className={`bi bi-arrow-repeat ${cx("loading")}`}></i>}
 
         <button className={cx("search-btn")}>
           <i className="bi bi-search"></i>

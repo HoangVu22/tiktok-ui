@@ -1,21 +1,22 @@
+import { Link } from "react-router-dom";
 import classNames from "classnames/bind";
 import styles from './AccountItem.module.scss'
 import Image from "~/components/Image";
 
 const cx = classNames.bind(styles);
 
-function AccountItem() {
+function AccountItem({ data }) {
     return ( 
-        <div className={cx('wrapper')}>
-            <Image src="https://internetviettel.vn/wp-content/uploads/2017/05/1-2.jpg" alt="" className={cx('avatar')} />
+        <Link to={`@${data.nickname}`} className={cx('wrapper')}>
+            <Image src={data.avatar} alt={data.full_name} className={cx('avatar')} />
             <div className={cx('info')}>
                 <h4 className={cx('name')}>
-                    <span>Nguyễn Hoàng Vũ</span>
-                    <i className={`bi bi-check-circle-fill ${cx('check')}`}></i>
+                    <span>{data.full_name}</span>
+                    {data.tick && <i className={`bi bi-check-circle-fill ${cx('check')}`}></i>}
                 </h4>
-                <span className={cx('userName')}>Zone-22</span>
+                <span className={cx('userName')}>{data.nickname}</span>
             </div>
-        </div>
+        </Link>
     );
 }
 
