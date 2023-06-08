@@ -3,12 +3,12 @@ import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css"; // optional
 import { Link } from "react-router-dom";
 
-import config from '~/config'
+import config from "~/config";
 import images from "~/assets/images";
 import styles from "./Header.module.scss";
 import Button from "~/components/Button";
 import Menu from "~/components/Menu";
-import Image from '~/components/Image'
+import Image from "~/components/Image";
 import Search from "../Search";
 // import { MessageIcon } from "~/components/Icons/index.jsx";
 
@@ -46,7 +46,6 @@ const MENU_ITEMS = [
 ];
 
 function Header() {
-
   // handle logic
   const handleMenuChange = (menuItem) => {
     switch (menuItem.type) {
@@ -82,13 +81,15 @@ function Header() {
       to: "/logout",
       separate: true, // cái nào có class này thì có  gạch trên đầu
     },
-  ]
+  ];
 
   return (
     <header className={cx("wrapper")}>
       <div className={cx("inner")}>
         <div className={cx("logo")}>
-          <Link to={config.routes.home} className={cx('logo-link')}><img src={images.logo} alt="tiktok" /></Link>
+          <Link to={config.routes.home} className={cx("logo-link")}>
+            <img src={images.logo} alt="tiktok" />
+          </Link>
         </div>
 
         {/* Search */}
@@ -97,19 +98,19 @@ function Header() {
         <div className={cx("action")}>
           {currentUser ? (
             <>
-              <Tippy content='Upload video' placement="bottom">
-                <button className={cx('action-btn')}>
+              <Tippy content="Upload video" placement="bottom">
+                <button className={cx("action-btn")}>
                   <i className="bi bi-cloud-upload"></i>
                 </button>
               </Tippy>
-              <Tippy content='Message' placement="bottom">
-                <button className={cx('action-btn')}>
+              <Tippy content="Message" placement="bottom">
+                <button className={cx("action-btn")}>
                   <i className="bi bi-send-check"></i>
                   {/* <MessageIcon /> */}
                 </button>
               </Tippy>
-              <Tippy content='Mail box' placement="bottom">
-                <button className={cx('action-btn')}>
+              <Tippy content="Mail box" placement="bottom">
+                <button className={cx("action-btn")}>
                   <i className="bi bi-mailbox"></i>
                 </button>
               </Tippy>
@@ -120,9 +121,16 @@ function Header() {
               <Button primary>Log in</Button>
             </>
           )}
-          <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
+          <Menu
+            items={currentUser ? userMenu : MENU_ITEMS}
+            onChange={handleMenuChange}
+          >
             {currentUser ? (
-              <Image className={cx("user-avatar")} src='https://phongreviews.com/wp-content/uploads/2022/11/anh-avatar-dep-cho-con-trai-11.jpg' alt="Nguyễn Hoàng Vũ" />
+              <Image
+                className={cx("user-avatar")}
+                src="https://phongreviews.com/wp-content/uploads/2022/11/anh-avatar-dep-cho-con-trai-11.jpg"
+                alt="Nguyễn Hoàng Vũ"
+              />
             ) : (
               <button className={cx("more-btn")}>
                 <i className="bi bi-three-dots-vertical"></i>
