@@ -13,15 +13,15 @@ const cx = classNames.bind(styles);
 function Search() {
   const [searchResult, setSearchResult] = useState([]);
   const [searchValue, setSearchvalue] = useState("");
-  const [showResult, setShowResult] = useState(true);
+  const [showResult, setShowResult] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const debounce = useDebounce(searchValue, 700); //  khi user ngừng gõ 700ms mới gọi API
+  const debounceValue = useDebounce(searchValue, 700); //  khi user ngừng gõ 700ms mới gọi API
 
   const inputRef = useRef();
 
   useEffect(() => {
-    if (!debounce.trim()) {
+    if (!debounceValue.trim()) {
       setSearchResult([]);
       return;
     }
@@ -29,14 +29,14 @@ function Search() {
     const fetchApi = async () => {
       setLoading(true);
 
-      const result = await searchService.search(debounce);
+      const result = await searchService.search(debounceValue);
       setSearchResult(result);
 
       setLoading(false);
     };
 
     fetchApi();
-  }, [debounce]);
+  }, [debounceValue]);
 
   const handleClear = () => {
     setSearchvalue(""); // khi click btn xóa sẽ set lại cho value chuỗi rỗng (useState)
