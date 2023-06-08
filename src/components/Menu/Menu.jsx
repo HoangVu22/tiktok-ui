@@ -6,7 +6,7 @@ import "tippy.js/dist/tippy.css"; // optional
 import styles from "./Menu.module.scss";
 import MenuItem from "./MenuItems";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
-import HeaderMenu from "../HeaderMenu";
+import HeaderMenu from "../HeaderMenu/HeaderMenu";
 import { useState } from "react";
 
 const cx = classNames.bind(styles);

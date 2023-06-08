@@ -6,10 +6,10 @@ import { Link } from "react-router-dom";
 import config from "~/config";
 import images from "~/assets/images";
 import styles from "./Header.module.scss";
-import Button from "~/components/Button";
-import Menu from "~/components/Menu";
-import Image from "~/components/Image";
-import Search from "../Search";
+import Button from "~/components/Button/Button";
+import Menu from "~/components/Menu/Menu";
+import Image from "~/components/Image/Image";
+import Search from "../Search/Search";
 // import { MessageIcon } from "~/components/Icons/index.jsx";
 
 const cx = classNames.bind(styles);
