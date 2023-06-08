@@ -1,10 +1,12 @@
 import { useEffect, useState, useRef } from "react";
 import classNames from "classnames/bind";
 import HeadlessTippy from "@tippyjs/react/headless";
+
+import * as searchService from "~/apiServices/searchService";
 import { Wrapper as PopperWrapper } from "~/components/Popper";
 import AccountItem from "~/components/AccountItem";
 import styles from "./Search.module.scss";
-import { useDebounce } from '~/hooks'
+import { useDebounce } from "~/hooks";
 
 const cx = classNames.bind(styles);
 
@@ -14,7 +16,7 @@ function Search() {
   const [showResult, setShowResult] = useState(true);
   const [loading, setLoading] = useState(false);
 
-  const debounce = useDebounce(searchValue, 700) //  khi user ngừng gõ 700ms mới gọi API
+  const debounce = useDebounce(searchValue, 700); //  khi user ngừng gõ 700ms mới gọi API
 
   const inputRef = useRef();
 
@@ -24,21 +26,16 @@ function Search() {
       return;
     }
 
-    setLoading(true); // trước khi call API thì load true
+    const fetchApi = async () => {
+      setLoading(true);
 
-    fetch(
-      `https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(
-        debounce
-      )}&type=less`
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        setSearchResult(res.data);
-        setLoading(false); // sau khi call API thì load false
-      })
-      .catch(() => {
-        setLoading(false); // trong tình huống lỗi như mất wf thì cũng false (dừng loading)
-      });
+      const result = await searchService.search(debounce);
+      setSearchResult(result);
+
+      setLoading(false);
+    };
+
+    fetchApi();
   }, [debounce]);
 
   const handleClear = () => {
