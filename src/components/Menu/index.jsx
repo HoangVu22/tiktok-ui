@@ -35,6 +35,7 @@ function Menu({ children, items = [], onChange = {defaultFn} }) {
       interactive
       delay={[0, 700]}
       offset={[12, 8]}
+      hideOnClick={false} //khi click vào avartar thì sẽ k ẩn đi
       onHide={() => setHistory((prev) => prev.slice(0, 1))} // khi di chuột ra thì tự động trả về cấp 1
       placement="bottom-end"
       render={(attrs) => (

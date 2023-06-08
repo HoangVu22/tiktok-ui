@@ -48,6 +48,16 @@ function Search() {
     setShowResult(false);
   };
 
+  const handleChange = (e) => {
+    const searchValue = e.target.value;
+    if (searchValue.startsWith(" ")) {
+      //khi bắt đầu search bằng dấu cách thì k cho search
+      return;
+    }
+
+    setSearchvalue(e.target.value); // set lại value
+  };
+
   return (
     <HeadlessTippy
       interactive
@@ -71,7 +81,7 @@ function Search() {
           type="text"
           placeholder="Search accounts and videos"
           spellCheck={false}
-          onChange={(e) => setSearchvalue(e.target.value)} // khi giá trị thay đổi thì set lại
+          onChange={handleChange} // khi giá trị thay đổi thì set lại
           onFocus={() => setShowResult(true)} // khi focus vào input thì hiện Result
         />
 
@@ -84,7 +94,7 @@ function Search() {
         {/* Nếu có loading thì toán tử && sẽ lấy icon này ra để hiện thị */}
         {loading && <i className={`bi bi-arrow-repeat ${cx("loading")}`}></i>}
 
-        <button className={cx("search-btn")}>
+        <button className={cx("search-btn")} onMouseDown={(e) => e.preventDefault()} >
           <i className="bi bi-search"></i>
         </button>
       </div>
