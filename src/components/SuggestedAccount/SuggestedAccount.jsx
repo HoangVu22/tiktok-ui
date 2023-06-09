@@ -13,6 +13,8 @@ function SuggestedAccount({ lable }) {
             <SuggestedAccountItem />
             <SuggestedAccountItem />
             <SuggestedAccountItem />
+            <SuggestedAccountItem />
+            <SuggestedAccountItem />
 
             <p className={cx('more-btn')}>See all</p>
         </div>
